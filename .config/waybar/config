@@ -5,7 +5,7 @@
     "spacing": 8,
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu", "custom/gpu", "memory", "pulseaudio", "network", "battery", "tray"],
+    "modules-right": ["cpu", "temperature", "custom/gpu", "memory", "pulseaudio", "network", "battery", "tray"],
     "hyprland/workspaces": {
         "format": "{name}",
         "on-click": "activate",
@@ -26,6 +26,13 @@
         "interval": 2,
         "format": "cpu {usage}%"
     },
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon6/temp1_input",
+        "interval": 2,
+        "warning-threshold": 75,
+        "critical-threshold": 85,
+        "format": "cpu {temperatureC}C"
+    },
     "custom/gpu": {
         "exec": "nvidia-smi --query-gpu=utilization.gpu,memory.used,memory.total --format=csv,noheader,nounits | tr -d ',' | xargs printf 'gpu %s%% %s/%s MiB\\n'",
         "interval": 2,
@@ -33,7 +40,7 @@
     },
     "memory": {
         "interval": 2,
-        "format": "ram {percentage}%"
+        "format": "ram {percentage}% swap {swapPercentage}%"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
